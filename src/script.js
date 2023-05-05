@@ -28,7 +28,7 @@ let generateShop = () => {
 generateShop();
 
 // ADICIONA UM PRODUTO AO CARRINHO
-let addItemOnCart = (id, name) => {
+let addItemOnCart = (id) => {
     // PROCURA NO CARRINHO O PRODUTO COM ID FORNECIDO
     let search = basket.find((item) => item.id == id);
     
@@ -38,47 +38,13 @@ let addItemOnCart = (id, name) => {
             id: id,
             item: 1,
         });
-        alert("O produto '" + name + "' foi adicionado ao carrinho");
-    // CASO JÁ EXISTA, O PRODUTO NÃO É ADICIONADO
-    } else {
-        alert("O produto '" + name + "' já está no carrinho");
     }
     localStorage.setItem("data", JSON.stringify(basket));
-    numberOfItemsOnCart(id);
-    // update(id);
+    numberOfItemsOnCart();
 }
 
-// REMOVE BUTTON
-// <i class="bi bi-bag-x-fill" onclick="removeItemOnCart(${item.id}, '${item.name}')"></i>
-
-// REMOVE UM ITEM DO CARRINHO
-let removeItemOnCart = (id, name) => {
-    // PROCURA NO CARRINHO O PRODUTO COM ID FORNECIDO
-    let search = basket.find((item) => item.id == id);
-
-    // CASO NÃO EXISTA, SIGNIFICA QUE O PRODUTO JÁ FOI REMOVIDO
-    if(search === undefined) {
-        alert("O produto '" + name + "' já foi removido");
-    }
-    // CASO EXISTA, O PRODUTO É REMOVIDO DO CARRINHO
-    else {
-        search.item = 0;
-        alert("Produto '" + name + "' removido");
-        if(search.item === 0) {
-            basket = basket.filter(search => search.item != 0)
-        }
-    }
-    localStorage.setItem("data", JSON.stringify(basket));
-    numberOfItemsOnCart(id);
-    // update(id);
-}
-
-// let update = (id) => {
-//     let search = basket.find((item) => item.id === id);
-//     numberOfItemsOnCart();
-// }
-
-let numberOfItemsOnCart = (id) => {
+// ATUALIZA O NÚMERO DE PRODUTOS NO CARRINHO
+let numberOfItemsOnCart = () => {
     let cartIcon = document.querySelector("#cartAmount");
     cartIcon.innerHTML = basket.length;
 }
